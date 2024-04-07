@@ -1,9 +1,29 @@
-import React from 'react';
-import { useAxios } from "../useAxios"; 
-// import "./UserList.css"
+import React, { useState } from 'react';
+import axios from 'axios';
+import { useAxios } from "../useAxios";
+import EditUser from './EditUser'; 
+import "./UserList.css"; 
 
 function UserList() {
-    const { response, error, loading } = useAxios('http://localhost:5000/users', 'get');
+    const { response, error, loading } = useAxios('http://localhost:5000/users', 'get'); 
+    const [editingUserId, setEditingUserId] = useState(null);
+
+    const handleEdit = (userId) => {
+        setEditingUserId(userId);
+    };
+
+    const handleDelete = async (userId) => {
+        try {
+            await axios.delete(`http://localhost:5000/users/${userId}`); 
+            window.location.reload();
+        } catch (error) {
+            console.error('Error deleting user:', error);
+        }
+    };
+
+    const handleCloseEdit = () => {
+        setEditingUserId(null);
+    };
 
     if (loading) {
         return <div>Loading...</div>;
@@ -13,18 +33,13 @@ function UserList() {
         return <div>Error: {error.message}</div>;
     }
 
-    
-    if (!Array.isArray(response.data) || response.data.length === 0) {
-        return <div>No users found</div>;
-    }
-
     return (
         <div className="user-list-container">
             <h2>User List</h2>
             <table className="user-table table"> 
                 <thead>
                     <tr>
-                        <th>Name</th>
+                        <th>User Name</th>
                         <th>Age</th>
                         <th>Action</th>
                     </tr>
@@ -35,13 +50,14 @@ function UserList() {
                             <td>{user.name}</td>
                             <td>{user.age}</td>
                             <td>
-                                <button className="btn btn-primary">Edit</button> 
-                                <button className="btn btn-danger">Delete</button> 
+                                <button className="btn btn-primary" onClick={() => handleEdit(user._id)}>Edit</button> 
+                                <button className="btn btn-danger" onClick={() => handleDelete(user._id)}>Delete</button> 
                             </td>
                         </tr>
                     ))}
                 </tbody>
             </table>
+            {editingUserId && <EditUser userId={editingUserId} onClose={handleCloseEdit} />}
         </div>
     );
 }
