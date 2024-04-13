@@ -1,9 +1,9 @@
-// EditUser.js
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 function EditUser({ userId, onClose }) {
-    const [user, setUser] = useState({ name: null, age: null }); // Initialize with null values
+    const [user, setUser] = useState({ name: '', age:null, email: '', phone: '' });
+
 
     useEffect(() => {
         if (userId) {
@@ -22,9 +22,9 @@ function EditUser({ userId, onClose }) {
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setUser(prevUser => ({
-            ...prevUser,
-            [name]: value
+        setUser(prevState => ({
+            ...prevState,
+            [name]: name === 'age' ? parseInt(value) : value
         }));
     };
 
@@ -32,7 +32,6 @@ function EditUser({ userId, onClose }) {
         e.preventDefault();
         try {
             await axios.put(`http://localhost:5000/users/${userId}`, user);
-            // Fetch the updated user data after successful submission
             const response = await axios.get(`http://localhost:5000/users/${userId}`);
             setUser(response.data);
             window.location.reload();
@@ -41,22 +40,29 @@ function EditUser({ userId, onClose }) {
             console.error('Error updating user:', error);
         }
     };
-    
 
     return (
         <div className="edit-user-container">
             <h2>Edit User</h2>
             <form onSubmit={handleSubmit}>
                 <div>
-                    <label>Name:</label>
+                    <label>Name:&nbsp; </label>
                     <input type="text" name="name" value={user.name || ''} onChange={handleChange} />
-                </div>
+                </div><br></br>
                 <div>
-                    <label>Age:</label>
-                    <input type="text" name="age" value={user.age || ''} onChange={handleChange} />
-                </div>
+                    <label>Age:&nbsp; </label>
+                    <input type="number" name="age" value={user.age || null} onChange={handleChange} />
+                </div><br></br>
                 <div>
-                    <button type="submit" className="btn btn-primary">Save</button>
+                    <label>Email:&nbsp; </label>
+                    <input type="text" name="email" value={user.email || ''} onChange={handleChange} />
+                </div><br></br>
+                <div>
+                    <label>Phone:&nbsp;</label>
+                    <input type="text" name="phone" value={user.phone || ''} onChange={handleChange} />
+                </div><br></br>
+                <div>
+                    <button type="submit" className="btn btn-primary">Save</button>&nbsp;&nbsp;&nbsp;
                     <button type="button" onClick={onClose} className="btn btn-secondary">Cancel</button>
                 </div>
             </form>

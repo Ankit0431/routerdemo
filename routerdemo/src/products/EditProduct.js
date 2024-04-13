@@ -18,7 +18,6 @@ function EditProduct({ productId, onClose }) {
         };
 
         fetchProduct();
-
         // No need to return a cleanup function since the product state will always be updated when the component re-renders
     }, [productId]);
 

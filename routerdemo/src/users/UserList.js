@@ -41,6 +41,8 @@ function UserList() {
                     <tr>
                         <th>User Name</th>
                         <th>Age</th>
+                        <th>Email</th>
+                        <th>Phone</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -49,6 +51,8 @@ function UserList() {
                         <tr key={user._id}>
                             <td>{user.name}</td>
                             <td>{user.age}</td>
+                            <td>{user.email}</td>
+                            <td>{user.phone}</td>
                             <td>
                                 <button className="btn btn-primary" onClick={() => handleEdit(user._id)}>Edit</button> 
                                 <button className="btn btn-danger" onClick={() => handleDelete(user._id)}>Delete</button> 
