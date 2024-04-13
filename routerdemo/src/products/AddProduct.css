@@ -1,5 +1,7 @@
 .add-product-container {
     margin: 20px;
+    display: flex;
+    justify-content: center;
 }
 
 .add-product-container form {

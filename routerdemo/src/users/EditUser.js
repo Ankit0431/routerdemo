@@ -22,9 +22,10 @@ function EditUser({ userId, onClose }) {
 
     const handleChange = (e) => {
         const { name, value } = e.target;
+        const final = name === "age" ? parseInt(value) : value
         setUser(prevState => ({
             ...prevState,
-            [name]: name === 'age' ? parseInt(value) : value
+            [name]: final
         }));
     };
 

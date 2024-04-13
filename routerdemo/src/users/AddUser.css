@@ -1,5 +1,7 @@
 .add-user-container {
     margin: 20px;
+    display: flex;
+    justify-content: center;
 }
 
 .add-user-container form {
@@ -19,6 +21,7 @@
 .add-user-container input[type="email"],
 .add-user-container input[type="password"] {
     width: 300px;
+    margin-left: 10px;
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 4px;

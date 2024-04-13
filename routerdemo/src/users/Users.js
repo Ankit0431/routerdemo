@@ -13,7 +13,7 @@ export default function Users() {
       <Link to="/" style={{ padding: 5 }}>Home</Link>
       {/* hide add link if already on add new user component */}
       {path !== "add" ? <Link to="/users/add" style={{ padding: 5 }}>Add User</Link> : <Link to="/users" style={{ padding: 5 }}>User Management</Link>}
-      {path !== 'add' ? <UserList/> : <h2>Add New User</h2>}
+      {path !== 'add' ? <UserList/> : <h2 style={{textAlign:"center"}}>Add New User</h2>}
     </div>
   );
 }

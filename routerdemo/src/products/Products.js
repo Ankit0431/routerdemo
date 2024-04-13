@@ -13,7 +13,7 @@ export default function Products() {
       <Link to="/" style={{ padding: 5 }}>Home</Link>
       {/* hide add link if already on add new product component */}
       {path !== 'add' ? <Link to="/products/add" style={{ padding: 5 }}>Add Product</Link> : <Link to="/products" style={{ padding: 5 }}>Product Management</Link>}
-      {path !== 'add' ? <ProductList/> : <h2>Add New Product</h2>}
+      {path !== 'add' ? <ProductList/> : <h2 style={{textAlign:"center"}}>Add New Product</h2>}
     </div>
   );
 }
